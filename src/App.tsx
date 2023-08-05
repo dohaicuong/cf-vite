@@ -3,7 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { trpc } from './providers/trpc'
-import { useAuth, useUser, SignInButton, SignOutButton } from '@clerk/clerk-react'
+import { useUser, SignInButton, SignOutButton } from '@clerk/clerk-react'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -55,7 +55,7 @@ const GreetingFromFunction = () => {
 const ClerkUser = () => {
   const payload = useUser()
 
-  if (!payload.isLoaded) return 'Loading...'
+  if (!payload.isLoaded) return <p>'Loading...'</p>
 
   if (!payload.isSignedIn) return <SignInButton />
 
