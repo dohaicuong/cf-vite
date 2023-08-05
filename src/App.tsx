@@ -3,6 +3,7 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import { trpc } from './providers/trpc'
+import { useAuth, useUser, SignInButton, SignOutButton } from '@clerk/clerk-react'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -25,13 +26,18 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
-        <Suspense fallback='Loading....'>
-          <GreetingFromFunction />
-        </Suspense>
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+
+      <hr />
+      <ClerkUser />
+
+      <hr />
+      <Suspense fallback='Loading....'>
+        <GreetingFromFunction />
+      </Suspense>
     </>
   )
 }
@@ -43,5 +49,23 @@ const GreetingFromFunction = () => {
 
   return (
     <p>{data}</p>
+  )
+}
+
+const ClerkUser = () => {
+  const payload = useUser()
+
+  if (!payload.isLoaded) return 'Loading...'
+
+  if (!payload.isSignedIn) return <SignInButton />
+
+  return (
+    <>
+      <p>user: {payload.user.fullName}</p>
+      <p>
+        <img style={{ width: 40 }} src={payload.user.imageUrl} />
+      </p>
+      <SignOutButton />
+    </>
   )
 }
