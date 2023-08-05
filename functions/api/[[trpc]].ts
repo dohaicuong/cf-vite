@@ -1,6 +1,8 @@
 import { appRouter } from '../../trpc'
 import tRPCPlugin, { FetchCreateContextWithCloudflareEnvFnOptions } from 'cloudflare-pages-plugin-trpc'
 
+import { parse } from 'cookie'
+
 export type Env = {
   CLERK_SECRET_KEY: string
 }
@@ -8,9 +10,13 @@ export type Env = {
 export type TRPCContext = ReturnType<typeof createContext>
 
 const createContext = (ctx: FetchCreateContextWithCloudflareEnvFnOptions<Env>) => {
-  console.log({ clerk_key: ctx.env.CLERK_SECRET_KEY })
+  const headerToken = ctx.req.headers.get('authorization')?.replace(`Bearer `, '')
+  const cookieToken = parse(ctx.req.headers.get('Cookie') || '')['__session']
 
-  return { req: ctx.req }
+  return {
+    env: ctx.env,
+    jwt_token: headerToken || cookieToken,
+  }
 }
 
 export const onRequest: PagesFunction<Env> = tRPCPlugin<Env>({

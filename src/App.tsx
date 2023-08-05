@@ -4,6 +4,9 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { trpc } from './providers/trpc'
 import { useUser, SignInButton, SignOutButton } from '@clerk/clerk-react'
+import { ErrorBoundary, FallbackProps } from 'react-error-boundary'
+import { TRPCClientError } from '@trpc/client'
+import { AppRouter } from '../trpc'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -35,9 +38,11 @@ function App() {
       <ClerkUser />
 
       <hr />
-      <Suspense fallback='Loading....'>
-        <GreetingFromFunction />
-      </Suspense>
+      <TrpcErrorBoundary>
+        <Suspense fallback='Loading....'>
+          <GreetingFromFunction />
+        </Suspense>
+      </TrpcErrorBoundary>
     </>
   )
 }
@@ -55,7 +60,7 @@ const GreetingFromFunction = () => {
 const ClerkUser = () => {
   const payload = useUser()
 
-  if (!payload.isLoaded) return <p>'Loading...'</p>
+  if (!payload.isLoaded) return <p>Loading...</p>
 
   if (!payload.isSignedIn) return <SignInButton />
 
@@ -68,4 +73,19 @@ const ClerkUser = () => {
       <SignOutButton />
     </>
   )
+}
+
+const TrpcErrorBoundary = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <ErrorBoundary FallbackComponent={TrpcErrorFallback}>
+      {children}
+    </ErrorBoundary>
+  )
+}
+
+const TrpcErrorFallback = ({ error }: FallbackProps) => {
+  const trpcError = error as TRPCClientError<AppRouter>
+  console.log(trpcError.message)
+
+  return <p>Something went wrong!</p>
 }
