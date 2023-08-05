@@ -13,16 +13,22 @@ export type ClerkClaims = {
 
 export const verifyClerkJwt = async (jwts_key: JWKSKey, jwt_token: string) => {
   try {
-    const isValid = await jwt.verify(jwt_token, jwts_key, {
-      algorithm: 'RS256'
+    await jwt.verify(jwt_token, jwts_key, {
+      algorithm: 'RS256',
+      throwError: true
     })
-    if (!isValid) return undefined
 
     const { payload } = jwt.decode(jwt_token)
-    return payload as ClerkClaims
+    return {
+      success: true as const,
+      payload: payload as ClerkClaims
+    }
   }
   catch (error) {
     console.log('verifyClerkJwt', error)
-    return undefined
+    return {
+      success: false as const,
+      error: error as Error
+    }
   }
 }

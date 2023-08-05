@@ -4,7 +4,7 @@ import { getClerkClient } from './services/clerk'
 
 export const appRouter = t.router({
   greeting: t.procedure
-    .use(isAuth)
+    .use(isAuth())
     .query(async ({ ctx }) => {
       if (ctx.jwt_payload) {
         const clerk = getClerkClient(ctx.env.CLERK_SECRET_KEY)
