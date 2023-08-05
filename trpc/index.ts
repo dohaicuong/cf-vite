@@ -13,8 +13,17 @@ export const appRouter = t.router({
         return `hello ${user.firstName}!`
       }
 
+
+
       return `hello world!`
     }),
+  get_all_keys: t.procedure
+    .query(async ({ ctx }) => {
+      return ctx.db
+        .selectFrom('kv')
+        .selectAll()
+        .execute()
+    })
 })
 
 export type AppRouter = typeof appRouter

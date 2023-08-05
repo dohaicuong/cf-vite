@@ -1,0 +1,6 @@
+-- Migration number: 0000 	 2023-08-05T09:25:08.009Z
+CREATE TABLE IF NOT EXISTS
+  "kv" (
+    "key" VARCHAR(255) NOT NULL PRIMARY KEY,
+    "value" VARCHAR(255)
+  );

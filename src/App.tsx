@@ -43,6 +43,13 @@ function App() {
           <GreetingFromFunction />
         </Suspense>
       </TrpcErrorBoundary>
+
+      <hr />
+      <TrpcErrorBoundary>
+        <Suspense fallback='Loading....'>
+          <KVFromD1 />
+        </Suspense>
+      </TrpcErrorBoundary>
     </>
   )
 }
@@ -54,6 +61,25 @@ const GreetingFromFunction = () => {
 
   return (
     <p>{data}</p>
+  )
+}
+
+const KVFromD1 = () => {
+  const { data } = trpc.get_all_keys.useQuery()
+
+  return (
+    <>
+      <p>
+        KV table
+      </p>
+      <ul>
+        {data?.map(row => (
+          <li key={row.key}>
+            {row.value}
+          </li>
+        ))}
+      </ul>
+    </>
   )
 }
 

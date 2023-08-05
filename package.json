@@ -7,7 +7,10 @@
     "dev": "wrangler pages dev -- vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "migration:create": "wrangler d1 migrations create --local cf-vite",
+    "migration:list": "wrangler d1 migrations list --local cf-vite",
+    "migration:apply": "wrangler d1 migrations apply --local cf-vite"
   },
   "dependencies": {
     "@clerk/clerk-react": "^4.23.2",
@@ -19,6 +22,8 @@
     "@tsndr/cloudflare-worker-jwt": "^2.2.1",
     "cloudflare-pages-plugin-trpc": "^0.3.2",
     "cookie": "^0.5.0",
+    "kysely": "^0.26.1",
+    "kysely-d1": "^0.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-error-boundary": "^4.0.10",

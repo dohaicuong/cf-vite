@@ -1,1 +1,6 @@
 compatibility_flags = [ "nodejs_compat" ]
+
+[[d1_databases]]
+binding = "DB" # i.e. available in your Worker on env.DB
+database_name = "cf-vite"
+database_id = "82d24cee-172d-4a98-a3e8-223d9147cf87"
