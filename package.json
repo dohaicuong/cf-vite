@@ -24,6 +24,7 @@
     "cookie": "^0.5.0",
     "kysely": "^0.26.1",
     "kysely-d1": "^0.3.0",
+    "prisma-kysely": "^1.5.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-error-boundary": "^4.0.10",
@@ -41,6 +42,7 @@
     "eslint": "^8.45.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
+    "prisma": "^5.1.1",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
   }
