@@ -8,7 +8,7 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "migration:create": "wrangler d1 migrations create --local cf-vite",
+    "migration:sync": "tsx ./scripts/prisma_migrations_to_d1_migrations.ts",
     "migration:list": "wrangler d1 migrations list --local cf-vite",
     "migration:apply": "wrangler d1 migrations apply --local cf-vite"
   },
@@ -20,6 +20,7 @@
     "@trpc/react-query": "^10.37.1",
     "@trpc/server": "^10.37.1",
     "@tsndr/cloudflare-worker-jwt": "^2.2.1",
+    "@types/node": "^20.4.8",
     "cloudflare-pages-plugin-trpc": "^0.3.2",
     "cookie": "^0.5.0",
     "kysely": "^0.26.1",
@@ -39,10 +40,12 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react-swc": "^3.3.2",
+    "app-root-path": "^3.1.0",
     "eslint": "^8.45.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "prisma": "^5.1.1",
+    "tsx": "^3.12.7",
     "typescript": "^5.0.2",
     "vite": "^4.4.5"
   }
