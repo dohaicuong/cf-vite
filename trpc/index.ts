@@ -13,8 +13,6 @@ export const appRouter = t.router({
         return `hello ${user.firstName}!`
       }
 
-
-
       return `hello world!`
     }),
   get_all_keys: t.procedure
